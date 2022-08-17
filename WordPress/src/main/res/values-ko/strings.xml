@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Translation-Revision-Date: 2022-07-28 15:54:26+0000
+Translation-Revision-Date: 2022-08-11 09:54:09+0000
 Plural-Forms: nplurals=1; plural=0;
 Generator: GlotPress/4.0.0-alpha.1
 Language: ko_KR
 -->
 <resources>
+    <string name="wp_jetpack_powered_features">신규 젯팩 앱에는 통계, 리더, 알림 등의 기능이 포함되어 있으며 워드프레스를 개선하는 데 도움이 됩니다.</string>
+    <string name="wp_jetpack_powered_better_with_jetpack">워드프레스는 젯팩과 함께 사용하면 더 좋습니다.</string>
     <string name="gutenberg_native_upgrade_your_plan_to_use_video_covers">비디오 커버를 사용하려면 요금제를 업그레이드하세요.</string>
     <string name="gutenberg_native_upgrade_your_plan_to_upload_audio">오디오를 업로드하려면 요금제를 업그레이드하세요.</string>
     <string name="gutenberg_native_jetpack_powered">젯팩 제공</string>
@@ -15,7 +17,6 @@ Language: ko_KR
     <string name="wp_jetpack_continue_to_stats">통계로 계속</string>
     <string name="wp_jetpack_continue_to_reader">리더로 계속</string>
     <string name="wp_jetpack_get_new_jetpack_app">새 젯팩 앱 가져오기</string>
-    <string name="wp_jetpack_powered_features">통계, 리더, 알림 및 기타 기능이 젯팩에서 제공됩니다.</string>
     <string name="gutenberg_native_problem_displaying_block_tap_to_attempt_block_recovery">블록 표시 중 문제가 발생했습니다. \n눌러서 블록 복구를 시도하세요.</string>
     <string name="weekly_roundup_notification_text_views_and_comments">지난주에는 조회수 %1$s개와 댓글 %2$s개가 있습니다.</string>
     <string name="weekly_roundup_notification_text_views_and_likes">지난주에는 조회수 %1$s개와 좋아요 %2$s개가 있습니다.</string>
@@ -44,10 +45,6 @@ Language: ko_KR
     <string name="qrcode_auth_flow_validated_subtitle">웹 브라우저에서 직접 가져온 QR 코드만 스캔하세요. 다른 사람이 보낸 코드는 스캔하지 마세요.</string>
     <string name="qrcode_auth_flow_validated_default_title">%1$s 근처에서 웹 브라우저 로그인을 시도하는 중이신가요?</string>
     <string name="qrcode_auth_flow_validated_title">%2$s 근처에서 %1$s 로그인을 시도하는 중이신가요?</string>
-    <string name="stats_revamp_v2_intro_secondary_button_text">나중에 다시 알림</string>
-    <string name="stats_revamp_v2_intro_primary_button_text">지금 시도</string>
-    <string name="stats_revamp_v2_intro_content_note">내 사이트 &gt; 통계 &gt; 인사이트에서 더 알아보기</string>
-    <string name="stats_revamp_v2_intro_content">인사이트는 콘텐츠의 성과와 잠재 고객이 공감하는 내용을 이해하는 데 도움이 됩니다.</string>
     <string name="stats_revamp_v2_intro_header_title">인사이트 업데이트</string>
     <string name="stats_insights_followers_guide_card">💡다른 블로그에서 댓글을 다는 것은 새 사이트에 대한 관심과 팔로워를 형성하는 훌륭한 방법입니다.</string>
     <string name="stats_insights_comments_guide_card">💡\"더 보기\"를 눌러 상위 댓글 작성자를 참조하세요.</string>
