@@ -10,12 +10,15 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationManagerCompat;
@@ -1150,6 +1153,24 @@ public class WPMainActivity extends LocaleAwareActivity implements
         }
     }
 
+    private final ActivityResultLauncher<Intent> mNewPostActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    Intent data = result.getData();
+                    if (data != null) {
+                        int localSiteId = data.getIntExtra(WordPress.LOCAL_SITE_ID, 0);
+                        if (localSiteId != 0) {
+                            SiteModel site = mSiteStore.getSiteByLocalId(localSiteId);
+                            if (site != null) {
+                                setSelectedSite(site);
+                            }
+                        }
+                    }
+                }
+            }
+    );
+
     @Override
     @SuppressWarnings("deprecation")
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -1482,7 +1503,8 @@ public class WPMainActivity extends LocaleAwareActivity implements
             return;
         }
         if (mViewModel.getHasMultipleSites()) {
-            ActivityLauncher.showSitePickerForResult(this, mViewModel.getFirstSite());
+            Log.d("MainActivity", "Site removed, but there are still multiple sites, so just show the site picker");
+            ActivityLauncher.showSitePickerForResult(this, mViewModel.getFirstSite(), mNewPostActivityResultLauncher);
         }
     }
 

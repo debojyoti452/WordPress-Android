@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import androidx.activity.result.ActivityResultLauncher;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -190,6 +191,12 @@ public class ActivityLauncher {
     public static void showSitePickerForResult(Activity activity, SiteModel site) {
         Intent intent = createSitePickerIntent(activity, site, SitePickerMode.DEFAULT_MODE);
         activity.startActivityForResult(intent, RequestCodes.SITE_PICKER);
+    }
+
+    public static void showSitePickerForResult(Activity activity, SiteModel site,
+                                               ActivityResultLauncher<Intent> launcher) {
+        Intent intent = createSitePickerIntent(activity, site, SitePickerMode.DEFAULT_MODE);
+        launcher.launch(intent);
     }
 
     /**
@@ -376,11 +383,11 @@ public class ActivityLauncher {
     }
 
     public static Intent openEditorWithPromptAndDismissNotificationIntent(
-        @NonNull final Context context,
-        final int notificationId,
-        final BloggingPromptModel bloggingPrompt,
-        @Nullable final Stat stat,
-        final EntryPoint entryPoint
+            @NonNull final Context context,
+            final int notificationId,
+            final BloggingPromptModel bloggingPrompt,
+            @Nullable final Stat stat,
+            final EntryPoint entryPoint
     ) {
         final Intent intent = getMainActivityInNewStack(context);
         intent.putExtra(WPMainActivity.ARG_OPEN_PAGE, WPMainActivity.ARG_EDITOR);
@@ -443,12 +450,12 @@ public class ActivityLauncher {
         }
 
         AnalyticsUtils.trackWithReblogDetails(
-            reblogSource == PagePostCreationSourcesDetail.POST_FROM_REBLOG
-                    ? READER_ARTICLE_REBLOGGED
-                    : READER_ARTICLE_DETAIL_REBLOGGED,
-            post.blogId,
-            post.postId,
-            site.getSiteId()
+                reblogSource == PagePostCreationSourcesDetail.POST_FROM_REBLOG
+                        ? READER_ARTICLE_REBLOGGED
+                        : READER_ARTICLE_DETAIL_REBLOGGED,
+                post.blogId,
+                post.postId,
+                site.getSiteId()
         );
 
         Intent editorIntent = new Intent(activity, EditPostActivity.class);
@@ -554,7 +561,7 @@ public class ActivityLauncher {
                     ActivityLauncher.class.getName(),
                     "NullPointerException",
                     "Failed to open Stats because of the null SiteModel"
-                                  );
+            );
             ToastUtils.showToast(context, R.string.stats_cannot_be_started, ToastUtils.Duration.SHORT);
         } else {
             StatsActivity.start(context, site);
@@ -569,7 +576,7 @@ public class ActivityLauncher {
                     ActivityLauncher.class.getName(),
                     "NullPointerException",
                     "Failed to open Stats because of the null SiteModel"
-                                  );
+            );
             ToastUtils.showToast(context, R.string.stats_cannot_be_started, ToastUtils.Duration.SHORT);
         } else {
             StatsActivity.start(context, site, statsTimeframe);
@@ -604,7 +611,7 @@ public class ActivityLauncher {
                     ActivityLauncher.class.getName(),
                     "NullPointerException",
                     "Failed to open Stats because of the null SiteModel"
-                                  );
+            );
             ToastUtils.showToast(context, R.string.stats_cannot_be_started, ToastUtils.Duration.SHORT);
             return;
         }
@@ -737,7 +744,7 @@ public class ActivityLauncher {
     }
 
     private static Intent createDomainRegistrationActivityIntent(Context context, @NonNull SiteModel site,
-                                                                   @NonNull DomainRegistrationPurpose purpose) {
+                                                                 @NonNull DomainRegistrationPurpose purpose) {
         Intent intent = new Intent(context, DomainRegistrationActivity.class);
         intent.putExtra(WordPress.SITE, site);
         intent.putExtra(DomainRegistrationActivity.DOMAIN_REGISTRATION_PURPOSE_KEY, purpose);
@@ -909,7 +916,7 @@ public class ActivityLauncher {
             final EntryPoint entryPoint
     ) {
         addNewPostForResult(
-            new Intent(activity, EditPostActivity.class), activity, site, isPromo, source, promptId, entryPoint
+                new Intent(activity, EditPostActivity.class), activity, site, isPromo, source, promptId, entryPoint
         );
     }
 
@@ -978,7 +985,7 @@ public class ActivityLauncher {
             return;
         }
 
-            Intent intent = new Intent(activity, StoryComposerActivity.class);
+        Intent intent = new Intent(activity, StoryComposerActivity.class);
         intent.putExtra(WordPress.SITE, site);
         intent.putExtra(MediaPickerConstants.EXTRA_MEDIA_URIS, mediaUris);
         intent.putExtra(AnalyticsUtils.EXTRA_CREATION_SOURCE_DETAIL, source);
@@ -1179,7 +1186,7 @@ public class ActivityLauncher {
         }
 
         if (remotePreviewType == RemotePreviewType.REMOTE_PREVIEW_WITH_REMOTE_AUTO_SAVE
-                        && TextUtils.isEmpty(post.getAutoSavePreviewUrl())) {
+            && TextUtils.isEmpty(post.getAutoSavePreviewUrl())) {
             return;
         }
 
@@ -1233,7 +1240,7 @@ public class ActivityLauncher {
     }
 
     private static void openAtomicBlogPostPreview(Context context, String url, String authenticationUrl,
-                                                 String frameNonce) {
+                                                  String frameNonce) {
         try {
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse(authenticationUrl + "?redirect_to=" + URLEncoder
@@ -1335,7 +1342,8 @@ public class ActivityLauncher {
     }
 
     public static void viewHelpAndSupportInNewStack(@NonNull Context context, @NonNull Origin origin,
-                                          @Nullable SiteModel selectedSite, @Nullable List<String> extraSupportTags) {
+                                                    @Nullable SiteModel selectedSite,
+                                                    @Nullable List<String> extraSupportTags) {
         Map<String, String> properties = new HashMap<>();
         properties.put("origin", origin.name());
         AnalyticsTracker.track(Stat.SUPPORT_OPENED, properties);
@@ -1652,8 +1660,8 @@ public class ActivityLauncher {
     }
 
     public static void openImageEditor(
-        Activity activity,
-        ArrayList<EditImageData.InputData> input
+            Activity activity,
+            ArrayList<EditImageData.InputData> input
     ) {
         Intent intent = new Intent(activity, EditImageActivity.class);
         intent.putParcelableArrayListExtra(ARG_EDIT_IMAGE_DATA, input);
@@ -1707,7 +1715,7 @@ public class ActivityLauncher {
     }
 
     public static void showRestoreForResult(Activity activity, @NonNull SiteModel site, String activityId,
-                                                   int resultCode, String source) {
+                                            int resultCode, String source) {
         Map<String, String> properties = new HashMap<>();
         properties.put(SOURCE_TRACK_EVENT_PROPERTY_KEY, source);
         AnalyticsTracker.track(Stat.JETPACK_RESTORE_OPENED, properties);
